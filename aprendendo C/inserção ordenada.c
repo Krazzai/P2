@@ -17,7 +17,7 @@ int main() {
 
     int numeros[qtd];  // Declaração do vetor com capacidade QTD
 
-    // Entrada de dados
+    // Entrada de dados 
     for (int i = 0; i < qtd; i++) {
         int valor;
         printf("Digite o valor %d: ", i + 1);
