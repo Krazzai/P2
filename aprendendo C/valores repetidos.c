@@ -1,8 +1,11 @@
+/*Feito por Luca Carazzai de Castro
+  RA: 850847
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
-#define M 5
-#define N 4
+#define M 10
+#define N 15
 
 void preencherMatriz(int m[][N], int lin, int col);
 void imprimirMatriz(int m[][N], int lin, int col);
@@ -18,7 +21,7 @@ int main() {
         printf("\nMENU\n\n");
         printf("1 - preencher matriz com aleatorios\n");
         printf("2 - Maior cada coluna\n");
-        printf("3 - Linha ou Coluna com mais repetidos\n\n");
+        printf("3 - Linha ou Coluna com mais repetidos\n");
         scanf("%d", &opcao);
         switch (opcao)
         {
@@ -106,10 +109,10 @@ void indiceMaisRepetidos(int m[][N], int lin, int col) {
     }
 
     if (tipoIndice == 0) {
-        printf("A linha com mais repetidos e a linha %d, com %d repeticoes.\n", indiceMaior, maiorRepeticoes);
+        printf("\nA linha com mais repetidos e a linha %d, com %d repeticoes.\n", indiceMaior, maiorRepeticoes);
     } 
     
     else {
-        printf("A coluna com mais repetidos e a coluna %d, com %d repeticoes.\n", indiceMaior, maiorRepeticoes);
+        printf("\nA coluna com mais repetidos e a coluna %d, com %d repeticoes.\n", indiceMaior, maiorRepeticoes);
     }
 }
