@@ -28,7 +28,7 @@ void gerarVetorDecrescente(int *vetor, int tamanho) {
 }
 
 // Função de medição de tempo
-long long tempoExecucao(void (funcao)(int, int), int *vetor, int tamanho) {
+long long tempoExecucao(void (*funcao)(int*, int), int *vetor, int tamanho) {
     clock_t inicio, fim;
     inicio = clock();
     funcao(vetor, tamanho);
@@ -80,9 +80,13 @@ void selectionSort(int *vetor, int tamanho) {
 }
 
 // Função para criar e medir o tempo de execução
-void medirTempo(int vetor, int tamanho, void (*algoritmo)(int, int), const char *nomeAlgoritmo, FILE *arquivo) {
+void medirTempo(int *vetor, int tamanho, void (*algoritmo)(int*, int), const char *nomeAlgoritmo, FILE *arquivo) {
     long long tempo = tempoExecucao(algoritmo, vetor, tamanho);
-    fprintf(arquivo, "%d,%lld,%s\n", tamanho, tempo, nomeAlgoritmo);
+    if (tempo > TEMPO_LIMITE) {
+        fprintf(arquivo, "%d,Excedeu Limite,%s\n", tamanho, nomeAlgoritmo);
+    } else {
+        fprintf(arquivo, "%d,%lld,%s\n", tamanho, tempo, nomeAlgoritmo);
+    }
 }
 
 int main() {
@@ -93,16 +97,13 @@ int main() {
     }
 
     // Cabeçalho do arquivo CSV
-    fprintf(arquivo, "Tamanho,Vetor Desordenado,Vetor Ordenado Crescente,Vetor Ordenado Decrescente\n");
+    fprintf(arquivo, "Tamanho,Tempo (ms),Algoritmo\n");
 
     int tamanhos[] = {10, 100, 1000, 10000, 100000, 1000000, 10000000};
     int numTamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]);
     
     for (int i = 0; i < numTamanhos; i++) {
         int tamanho = tamanhos[i];
-        if (tamanho > MAX_VETOR) {
-            tamanho = MAX_VETOR;
-        }
 
         // Alocação dinâmica do vetor
         int *vetor = (int *)malloc(tamanho * sizeof(int));
